@@ -8,7 +8,10 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 		 min: 0,
 		 idle: 10000
 	},
-	storage: 'db/test.db'
+	storage: 'db/test.db',
+	define: {
+		timestamps: false // true by default
+	}
 });
 
 sequelize.authenticate().then(() => {
@@ -18,12 +21,19 @@ sequelize.authenticate().then(() => {
 });
 
 const User = sequelize.define('usuarios', {
-usuario: {
-type: Sequelize.STRING
-},
-contrasenia: {
-type: Sequelize.STRING
-}
+	usuario: {
+		type: Sequelize.STRING
+	},
+	contrasenia: {
+		type: Sequelize.STRING
+	}
+});
+
+const Post = sequelize.define('post', {}, {
+	nombre: {
+		type: Sequelize.STRING
+	},
+  	timestamps: true // timestamps will now be true
 });
 
 User.sync({force: true}).then(() => {
@@ -33,6 +43,8 @@ User.sync({force: true}).then(() => {
 		contrasenia: 'Hancock'
 	});
 });
+
+Post.sync({force: true}).then();
 
 User.findAll().then(users => {
   console.log(users)
