@@ -20,7 +20,7 @@ sequelize.authenticate().then(() => {
 	console.error('Unable to connect to the database:', err);
 });
 
-const User = sequelize.define('usuarios', {
+const Usuario = sequelize.define('usuarios', {
 	usuario: {
 		type: Sequelize.STRING
 	},
@@ -36,9 +36,9 @@ const Post = sequelize.define('post', {}, {
   	timestamps: true // timestamps will now be true
 });
 
-User.sync({force: true}).then(() => {
+Usuario.sync({force: true}).then(() => {
 	// Table created
-	return User.create({
+	return Usuario.create({
 		usuario: 'John',
 		contrasenia: 'Hancock'
 	});
@@ -46,6 +46,6 @@ User.sync({force: true}).then(() => {
 
 Post.sync({force: true}).then();
 
-User.findAll().then(users => {
+Usuario.findAll().then(users => {
   console.log(users)
 })
